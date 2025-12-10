@@ -121,10 +121,24 @@ def main():
     hazard_list = load_hazard_indices("./hazard_idx.txt")
     scenario_list = [1, 2, 3, 4, 5]
 
+    for _ in range(5):
+        client.publish("warmup/ping", "ping")
+        print("[A] Sent warmup ping.")
+        time.sleep(0.2)
+    print("[A] Warmed up connection.")
+
+    # Dummy trial
+    print("\n[A] Starting dummy trial for warm-up...")
+    dummy_hazard = hazard_list[0]
+    run_trial(0, scenario_list[0], dummy_hazard, client)
+    time.sleep(2)
+
+    print("\n[A] Starting real trials...")
+    # Real trials
     for trial, hazard_idx in enumerate(hazard_list, start=1):
         scenario = scenario_list[(trial - 1) % 5]
         run_trial(trial, scenario, hazard_idx, client)
-        time.sleep(5)
+        time.sleep(3)
 
     # Tell B to shut down
     client.publish("experiment/end", json.dumps({"status":"done"}))

@@ -42,10 +42,9 @@ def run_trial(trial, hazard_idx, scenario):
 
 
 def main():
-    # Initialize CSV if not exists
-    if not os.path.exists(RESULTS_FILE):
-        with open(RESULTS_FILE, "w") as f:
-            f.write("trial,scenario,hazard_idx,B_start,t_local\n")
+    # Initialize CSV
+    with open(RESULTS_FILE, "w") as f:
+        f.write("trial,scenario,hazard_idx,B_start,t_local\n")
 
     hazard_list = load_hazard_indices("./hazard_idx.txt")
     scenario_list = [1,2,3,4,5]

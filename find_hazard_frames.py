@@ -36,7 +36,7 @@ def main():
     counter = 0
     # Loop over all frames
     for filename in images:
-        if counter == 101:
+        if counter == 100:
             break
 
         img_path = os.path.join(KITTI_PATH, filename)
@@ -55,10 +55,10 @@ def main():
         idx = int(filename.split(".")[0])  # Frame index from filename
 
         if contains_hazard:
-            print(f"[FOUND HAZARD] Frame {idx} ({filename})")
-            hazard_indices.append(idx)
-
-        counter += 1 
+            if idx > 50:
+                print(f"[FOUND HAZARD] Frame {idx} ({filename})")
+                hazard_indices.append(idx)
+                counter += 1
 
     if not hazard_indices:
         print("\nERROR: no hazards found in dataset!")

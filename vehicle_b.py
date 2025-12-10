@@ -3,9 +3,11 @@ import time, json, cv2, os
 from ultralytics import YOLO
 
 FRAME_INTERVAL = 0.1
-KITTI_PATH = "/home/mkim24/home/graduate/csci680/chws/KITTI/testing/image_2"
+KITTI_PATH = "./KITTI/testing/image_2"
+DUMMY_PATH = "./dummy.png"
 
 model = YOLO("yolov8n.pt")
+
 
 # Trial state
 trial_active = False
@@ -36,6 +38,13 @@ def on_message(client, userdata, msg):
     global trial_active, hazard_idx, B_start
     global start_time, received_chws, t_chws
     global last_payload, running
+
+    # ---------------------------
+    # Warm-up pong
+    # ---------------------------
+    if topic == "warmup/pong":
+        print("[B] Pong received.")
+        return
 
     payload = safe_json_decode(msg)
     if payload is None:
@@ -103,12 +112,17 @@ def main():
 
     global trial_active
 
+    model.predict(DUMMY_PATH, verbose=False)
+    print("[B] YOLO model loaded and warmed up.")
+
     client = mqtt.Client("VehicleB")
     client.connect("100.103.240.89", 1883, keepalive=300)
 
     client.subscribe("vehicleB/start")
     client.subscribe("vehicleB/hazard")
     client.subscribe("experiment/end")
+
+    client.subscribe("warmup/pong")
 
     client.on_message = on_message
     client.loop_start()
@@ -118,6 +132,7 @@ def main():
 
     print("[B] Ready for trials...")
 
+    counter = 0
     while running:
         time.sleep(0.05)
 
@@ -146,16 +161,22 @@ def main():
 
             # Save results
             # "travel_time" refers to the travel time of B!
-            with open("vehicle_b_results.csv", "a") as f:
-                f.write(
-                    f"{last_payload['trial']},{last_payload['scenario']},"
-                    f"{travel_time:.3f},{local_yolo_time:.3f},{t_local_total:.3f},"
-                    f"{t_chws if t_chws else 0:.3f},{final_time:.3f},{improvement:.3f}\n"
-                )
+            
+            if counter != 0:
+                with open("vehicle_b_results.csv", "a") as f:
+                    f.write(
+                        f"{last_payload['trial']},{last_payload['scenario']},"
+                        f"{travel_time:.3f},{local_yolo_time:.3f},{t_local_total:.3f},"
+                        f"{t_chws if t_chws else 0:.3f},{final_time:.3f},{improvement:.3f}\n"
+                    )
+                
+            elif counter == 0:
+                print("[B] Skipping dummy trial result logging.")
 
             print(f"[B] Final time = {final_time:.3f}s (Improvement {improvement:.3f}s)\n")
 
             trial_active = False
+            counter += 1
 
     client.loop_stop()
     client.disconnect()

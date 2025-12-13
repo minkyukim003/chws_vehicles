@@ -3,7 +3,7 @@
 import paho.mqtt.client as mqtt
 import json, time
 
-EDGE_IP = "100.103.240.89"
+EDGE_IP = "YOUR EDGE IP HERE"
 
 client = mqtt.Client("VehicleA")
 client.connect(EDGE_IP, 1883)

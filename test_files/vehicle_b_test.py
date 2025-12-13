@@ -2,7 +2,7 @@
 
 import paho.mqtt.client as mqtt
 
-EDGE_IP = "100.103.240.89"
+EDGE_IP = "YOUR EDGE IP HERE"
 
 def on_message(client, userdata, msg):
     print("[Vehicle B] Received hazard:", msg.payload.decode())

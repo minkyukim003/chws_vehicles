@@ -6,6 +6,8 @@ FRAME_INTERVAL = 0.1
 KITTI_PATH = "./KITTI/testing/image_2"
 DUMMY_PATH = "./dummy.png"
 
+EDGE_IP = "ENTER YOUR IP HERE"
+
 model = YOLO("yolov8n.pt")
 
 
@@ -116,7 +118,7 @@ def main():
     print("[B] YOLO model loaded and warmed up.")
 
     client = mqtt.Client("VehicleB")
-    client.connect("100.103.240.89", 1883, keepalive=300)
+    client.connect(EDGE_IP, 1883, keepalive=300)
 
     client.subscribe("vehicleB/start")
     client.subscribe("vehicleB/hazard")

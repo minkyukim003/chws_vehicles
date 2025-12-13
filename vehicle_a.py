@@ -3,7 +3,7 @@ import paho.mqtt.client as mqtt
 import time, json, os, cv2
 from ultralytics import YOLO
 
-EDGE_IP = "100.103.240.89"
+EDGE_IP = "ENTER YOUR IP HERE"
 FRAME_INTERVAL = 0.1
 KITTI_PATH = "/home/mkim24/home/graduate/csci680/chws/KITTI/testing/image_2"
 

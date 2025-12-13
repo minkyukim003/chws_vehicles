@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 
-EDGE_IP = "100.103.240.89"  # <-- replace this with your laptop WiFi IP
+EDGE_IP = "YOUR EDGE IP HERE"  # <-- replace this with your laptop WiFi IP
 
 client = mqtt.Client("SchoolTest")
 

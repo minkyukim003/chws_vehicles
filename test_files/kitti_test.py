@@ -1,6 +1,6 @@
 import os, cv2
 
-KITTI_TRAINING_PATH = "/home/mkim24/home/graduate/csci680/chws/KITTI/training/image_2"
+KITTI_TRAINING_PATH = "./KITTI/training/image_2"
 
 images = sorted(os.listdir(KITTI_TRAINING_PATH))
 

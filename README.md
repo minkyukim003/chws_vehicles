@@ -30,17 +30,17 @@ This repository contains the files that simulates the vehicles in my CHWS system
 * vehicle_a_test.py
     * Tests if vehicle A works as expected when working with vehicle_b_test.py and the edge server test.
 * vehicle_b_test.py
-    Same as above but for vehicle B.
+    * Same as above but for vehicle B.
 * dummy.png
-    This is used by the YOLO model to warm up. 
+    * This is used by the YOLO model to warm up. 
 * find_hazard_frames.py
-    This file finds 100 frames in the KITTI dataset that contain hazards and shuffles them, outputting hazard_idx.txt, which includes the randomly selected and shuffled hazard indices. 
+    * This file finds 100 frames in the KITTI dataset that contain hazards and shuffles them, outputting hazard_idx.txt, which includes the randomly selected and shuffled hazard indices. 
 * vehicle_a.py 
-    This file simulates CHWS vehicle A by sending hazard information to B through edge.
+    * This file simulates CHWS vehicle A by sending hazard information to B through edge.
 * vehicle_b.py 
-    This file simulates CHWS vehicle B by receiving information from A through edge. It also performs local YOLO detections. This file outputs vehicle_b_results.csv. 
+    * This file simulates CHWS vehicle B by receiving information from A through edge. It also performs local YOLO detections. This file outputs vehicle_b_results.csv. 
 * vehicle_c.py 
-    This file simulates local vehicle C by performing local YOLO detections. This file outputs vehicle_c_results.csv. 
+    * This file simulates local vehicle C by performing local YOLO detections. This file outputs vehicle_c_results.csv. 
 
 ### The CHWS connections must established by following the procedure below.
 1. Start a mosquitto process on your edge device.

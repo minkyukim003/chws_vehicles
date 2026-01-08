@@ -1,7 +1,7 @@
-CHWS Vehicles
+# CHWS Vehicles
 This repository contains the files that simulates the vehicles in my CHWS system. 
 
-Files in this repo. 
+## Files in this repo. 
     /test_files
         /kitti_test.py
         /mqtt_test.py
@@ -13,14 +13,14 @@ Files in this repo.
     /vehicle_b.py
     /vehicle_c.py
 
-Required installation for connection
+### Required installation for connection
     mosquitto
 
-Required imports for Python
+### Required imports for Python
     Ultralytics YOLO
     paho
 
-Other installations
+### Other installations
     You must have the KITTI dataset in your working folder.
 
 kitti_test.py
